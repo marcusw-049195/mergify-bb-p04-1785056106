@@ -1,19 +1,11 @@
 pull_request_rules:
-  - name: p31 template probe
-    conditions:
-      - base=main
-      - label=p31-tpl
-    actions:
-      comment:
-        message: "TPL author={{author}} body={{body}} files={{files}} commits={{commits}} assignee={{assignee}} approvers={{approvers}} head={{head}} labels={{labels}} number={{number}} title={{title}}"
-  - name: p31 queue me
+  - name: p31 queue on label
     conditions:
       - base=main
       - label=p31-queue-me
     actions:
       queue:
         name: default
-        comment: "queued by p31"
 
 queue_rules:
   - name: default
