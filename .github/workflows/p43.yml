@@ -1,20 +1,9 @@
-name: p43 nested identifier matrix
+name: p43 retired harmless workflow
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 jobs:
-  p43-job:
+  harmless:
     runs-on: ubuntu-latest
-    env:
-      MERGIFY_JOB_NAME: p43-job
     steps:
-      - name: Generate researcher-owned JUnit report
-        run: printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?><testsuite name="p43-suite" tests="2" failures="1"><testcase classname="p43" name="p43-pass"/><testcase classname="p43" name="p43-fail"><failure message="researcher-owned failure">p43 controlled failure</failure></testcase></testsuite>' > junit-p43.xml
-      - name: Upload test results to Mergify
-        if: success() || failure()
-        uses: mergifyio/gha-mergify-ci@v14
-        with:
-          token: ${{ secrets.MERGIFY_TOKEN }}
-          flaky_test_detection: true
-          report_path: junit-p43.xml
+      - name: Harmless researcher-owned echo
+        run: echo p43-retired
