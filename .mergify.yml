@@ -5,4 +5,21 @@ pull_request_rules:
       - label=p31-tpl
     actions:
       comment:
-        message: "TPL author={{author}} body={{body}} files={{files}} commits={{commits}} assignee={{assignee}} approvers={{approvers}} queue_dequeue_reason={{queue_dequeue_reason}} head={{head}} labels={{labels}}"
+        message: "TPL author={{author}} body={{body}} files={{files}} commits={{commits}} assignee={{assignee}} approvers={{approvers}} head={{head}} labels={{labels}} number={{number}} title={{title}}"
+  - name: p31 queue me
+    conditions:
+      - base=main
+      - label=p31-queue-me
+    actions:
+      queue:
+        name: default
+        comment: "queued by p31"
+
+queue_rules:
+  - name: default
+    batch_size: 1
+    queue_conditions:
+      - base=main
+    merge_conditions:
+      - "#approved-reviews-by>=0"
+    merge_method: merge
