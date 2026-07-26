@@ -1,0 +1,12 @@
+name: p43 nested identifier matrix
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  p43-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: p43 harmless job
+        run: echo p43
+
