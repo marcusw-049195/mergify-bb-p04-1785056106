@@ -1,20 +1,10 @@
 pull_request_rules:
-  - name: p30 comment probe
+  - name: p30 simple comment
     conditions:
       - base=main
-      - title~=^p30
     actions:
       comment:
-        message: |
-          p30-bot-alive author={{author}} number={{number}} title={{title}} head={{head}} base={{base}}
-          body_snip={{body}}
+        message: "p30-alive author={{author}} n={{number}} title={{title}}"
       label:
         add:
           - p30-probe
-  - name: p30 queue if conditions (safe - may not queue without merge queue product fully)
-    conditions:
-      - base=main
-      - label=p30-queue-me
-    actions:
-      queue:
-        name: default
