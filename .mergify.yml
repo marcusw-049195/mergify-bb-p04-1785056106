@@ -3,15 +3,14 @@ queue_rules:
     batch_size: 1
     queue_conditions:
       - base=main
-    merge_conditions:
-      - "#approved-reviews-by>=0"
+    merge_conditions: []
     merge_method: merge
 
 pull_request_rules:
-  - name: queue open prs
+  - name: p33 auto queue
     conditions:
       - base=main
-      - -closed
+      - label=queued
     actions:
       queue:
         name: default
