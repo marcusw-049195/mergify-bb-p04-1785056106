@@ -1,8 +1,8 @@
 pull_request_rules:
-  - name: p31 queue on label
+  - name: p32 queue always
     conditions:
       - base=main
-      - label=p31-queue-me
+      - label=p32-queue
     actions:
       queue:
         name: default
@@ -12,6 +12,7 @@ queue_rules:
     batch_size: 1
     queue_conditions:
       - base=main
+      - label=p32-queue
     merge_conditions:
       - "#approved-reviews-by>=0"
     merge_method: merge
