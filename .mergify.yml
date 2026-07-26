@@ -1,10 +1,33 @@
+defaults:
+  actions:
+    comment:
+      bot_account: null
+
 pull_request_rules:
-  - name: p30 simple comment
+  - name: p31 always comment
     conditions:
       - base=main
     actions:
       comment:
-        message: "p30-alive author={{author}} n={{number}} title={{title}}"
+        message: "p31-LIVE author={{author}} n={{number}} title={{title}}"
       label:
         add:
-          - p30-probe
+          - p31-probe
+
+queue_rules:
+  - name: default
+    batch_size: 1
+    queue_conditions:
+      - base=main
+      - label=p31-queue-me
+    merge_conditions:
+      - check-success=ci
+    merge_method: merge
+
+merge_protections:
+  - name: p31 protection
+    description: probe
+    if:
+      - base=main
+    success_conditions:
+      - "#approved-reviews-by>=0"
