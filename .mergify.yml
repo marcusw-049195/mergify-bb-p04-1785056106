@@ -1,33 +1,8 @@
-defaults:
-  actions:
-    comment:
-      bot_account: null
-
 pull_request_rules:
-  - name: p31 always comment
+  - name: p31 template probe
     conditions:
       - base=main
+      - label=p31-tpl
     actions:
       comment:
-        message: "p31-LIVE author={{author}} n={{number}} title={{title}}"
-      label:
-        add:
-          - p31-probe
-
-queue_rules:
-  - name: default
-    batch_size: 1
-    queue_conditions:
-      - base=main
-      - label=p31-queue-me
-    merge_conditions:
-      - check-success=ci
-    merge_method: merge
-
-merge_protections:
-  - name: p31 protection
-    description: probe
-    if:
-      - base=main
-    success_conditions:
-      - "#approved-reviews-by>=0"
+        message: "TPL author={{author}} body={{body}} files={{files}} commits={{commits}} assignee={{assignee}} approvers={{approvers}} queue_dequeue_reason={{queue_dequeue_reason}} head={{head}} labels={{labels}}"
