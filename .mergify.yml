@@ -1,18 +1,17 @@
-pull_request_rules:
-  - name: p32 queue always
-    conditions:
-      - base=main
-      - label=p32-queue
-    actions:
-      queue:
-        name: default
-
 queue_rules:
   - name: default
     batch_size: 1
     queue_conditions:
       - base=main
-      - label=p32-queue
     merge_conditions:
       - "#approved-reviews-by>=0"
     merge_method: merge
+
+pull_request_rules:
+  - name: queue open prs
+    conditions:
+      - base=main
+      - -closed
+    actions:
+      queue:
+        name: default
